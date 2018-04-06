@@ -16,14 +16,21 @@ io.on('connection', (socket) => {
   console.log('New user connected');
 
   //use for creating an event
-  socket.emit('newMessage',{
-    from:'mike@example.com',
-    test: 'Hey. What si going on.',
-    createAt: 123123
-  });
+  // socket.emit('newMessage',{
+  //   from:'mike@example.com',
+  //   test: 'Hey. What is going on.',
+  //   createAt: 123123
+  // });
 
 socket.on('createMessage', (message) => {
   console.log('createMessage', message);
+
+  // emit to every single connection
+  io.emit('newMessage', {
+    from: message.from,
+    text:message.text,
+    createAt: new Date().getTime()
+  });
 });
 
   socket.on('disconnect', () => {

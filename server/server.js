@@ -24,7 +24,7 @@ io.on('connection', (socket) => {
   // });
 
   //socket.emit from admin text welcome to the chat app
-  socket.emit('newMessage', generateMessage('Admin', 'welcome to hte chat app'));
+  socket.emit('newMessage', generateMessage('Admin', 'welcome to the chat app'));
   // socket.broadccast.emit from admin text new user joined
   socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user joined'));
   // //send to everybudy except this socket
@@ -34,10 +34,12 @@ io.on('connection', (socket) => {
   //   createAt: new Date().getTime()
   // });
 // });
-  socket.on('createMessage', (message) => {
+  socket.on('createMessage', (message, callback) => {
     console.log('createMessage', message);
     // emit to every single connection
     io.emit('newMessage', generateMessage(message.from, message.text));
+
+    callback('This is from the server');
   });
 
 

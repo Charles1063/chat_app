@@ -27,14 +27,14 @@ socket.on('connect', function () {
       alert(err);
       window.location.href = '/';
     } else {
-      console.log('No error');
+      // console.log('No error');
     }
   });
 
 });
 
 socket.on('disconnect', function () {
-  console.log('disconnect from server');
+  // console.log('disconnect from server');
 });
 
 socket.on('updateUserList', (users) => {
@@ -57,8 +57,8 @@ socket.on('newMessage', function (message) {
   // jQuery('#messages').append(li);
   var template = jQuery('#message-template').html();
   var html = Mustache.render(template, {
-    text: message.text,
     from: message.from,
+    text: message.text,
     createAt: formattedTime
   });
 
@@ -97,7 +97,7 @@ socket.on('newLocationMessage', function (message) {
 jQuery('#message-form').on('submit', function (e) {
   e.preventDefault();
 
-  var messageTextbox = jQuery('[name = message]');
+  var  = jQuery('[name = message]');
 
   socket.emit('createMessage', {
     from: 'User',

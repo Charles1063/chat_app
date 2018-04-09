@@ -15,7 +15,7 @@ function scrollToButtom () {
   if (clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight) {
     messages.scrollTop(scrollHeight);
   }
-};
+}
 
 
 socket.on('connect', function () {
@@ -27,14 +27,13 @@ socket.on('connect', function () {
       alert(err);
       window.location.href = '/';
     } else {
-      // console.log('No error');
+      console.log('No error');
     }
   });
-
 });
 
 socket.on('disconnect', function () {
-  // console.log('disconnect from server');
+  console.log('disconnect from server');
 });
 
 socket.on('updateUserList', (users) => {
@@ -105,28 +104,27 @@ jQuery('#message-form').on('submit', function (e) {
   }, function () {
       messageTextbox.val('')
   });
+});
 
-  var locationButton = jQuery('#send-location');
-  locationButton.on('click', function () {
-    // see if the user can access to the geo API
-    if (!navigator.geolocation) {
-      return alert('Geolocation not support by your brower.')
-    }
-    locationButton.attr('disabled', 'disabled').text('Sending Location...');
+var locationButton = jQuery('#send-location');
+locationButton.on('click', function () {
+  // see if the user can access to the geo API
+  if (!navigator.geolocation) {
+    return alert('Geolocation not support by your brower.')
+  }
+  locationButton.attr('disabled', 'disabled').text('Sending Location...');
 
-    navigator.geolocation.getCurrentPosition(function (position) {
-      // console.log(position);
-      locationButton.removeAttr('disabled').text('Send location');
-      //fetch the location
-      socket.emit('createLocationMessage', {
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude
-      });
-    }, function () {
-      // didn't allow to fetch the location
-      locationButton.removeAttr('disabled').text('Send location');
-      alert('Unable to fetch location.')
+  navigator.geolocation.getCurrentPosition(function (position) {
+    // console.log(position);
+    locationButton.removeAttr('disabled').text('Send location');
+    //fetch the location
+    socket.emit('createLocationMessage', {
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude
     });
+  }, function () {
+    // didn't allow to fetch the location
+    locationButton.removeAttr('disabled').text('Send location');
+    alert('Unable to fetch location.')
   });
-
 });

@@ -19,4 +19,7 @@ Start server
 node server/server.js
 ```
 
-Open localhost:3000 in browser
+Open browser
+```
+localhost:3000
+```
